@@ -1,0 +1,124 @@
+.card {
+  border: 2px solid var(--panel-edge);
+  border-radius: var(--radius);
+  background: linear-gradient(160deg, var(--panel-hi), var(--panel-lo));
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.08), 0 1px 2px rgb(0 0 0 / 0.4);
+  padding: var(--gap);
+}
+
+.card-inset {
+  border: 2px solid #56646a;
+  border-radius: var(--radius-s);
+  background: linear-gradient(160deg, #4a575e, #3a454b);
+  padding: var(--gap-s) var(--gap);
+}
+
+.emboss {
+  margin: 0;
+  font-family: 'Helvetica Neue', Arial Narrow, Arial, sans-serif;
+  font-stretch: condensed;
+  font-weight: 800;
+  font-size: 2.6rem;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  color: #23292c;
+  text-shadow: 0 1px 0 rgb(255 255 255 / 0.18), 0 -1px 0 rgb(0 0 0 / 0.35);
+}
+
+.control-label {
+  font-size: 1rem;
+  color: var(--text);
+  text-shadow: 0 1px 0 var(--emboss);
+  text-align: center;
+}
+
+.controls-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap);
+  align-items: end;
+  justify-content: center;
+}
+
+.controls-col {
+  display: grid;
+  gap: var(--gap);
+  justify-items: center;
+}
+
+.key-group {
+  display: grid;
+  gap: 0.25rem;
+  justify-items: center;
+}
+
+.key-group > div {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.display-stack {
+  display: grid;
+  gap: var(--gap);
+  height: 100%;
+  grid-template-rows: auto minmax(12rem, 1fr);
+}
+
+.curve-row {
+  display: flex;
+  gap: 0.4rem;
+  align-items: stretch;
+  max-width: 32rem;
+  width: 100%;
+  margin-inline: auto;
+}
+
+.meter-col {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 0.25rem;
+  justify-items: center;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+}
+
+.curve-row > svg {
+  flex: 1;
+  min-width: 0;
+}
+
+.device-panel {
+  display: grid;
+  gap: calc(var(--gap) * 1.5);
+  align-content: start;
+}
+
+.device-panel .head {
+  display: grid;
+  grid-template-columns: auto repeat(auto-fit, minmax(7rem, 1fr));
+  gap: var(--gap);
+  align-items: center;
+}
+
+.param-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+  gap: var(--gap) calc(var(--gap) * 1.5);
+}
+
+.hint {
+  margin: 0;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+}
+
+@media (width < 32rem) {
+  .device-panel .head {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .device-panel .head .emboss {
+    grid-column: 1 / -1;
+  }
+}
