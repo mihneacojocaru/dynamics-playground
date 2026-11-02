@@ -15,7 +15,7 @@ export const useLangStore = defineStore('lang', () => {
   watch(lang, (l) => {
     save('lang', l);
     document.documentElement.lang = l;
-    document.title = l === 'de' ? 'Audio Kompressor – Dynamik zum Anschauen | mc-creative' : 'Audio Compressor – Dynamics you can see | mc-creative';
+    document.title = l === 'de' ? 'Dynamics Playground – Dynamik zum Anschauen | mc-creative' : 'Dynamics Playground – Dynamics you can see | mc-creative';
   }, { immediate: true });
 
   /** Picks the current language from a Text; plain strings (technical terms) pass through. */

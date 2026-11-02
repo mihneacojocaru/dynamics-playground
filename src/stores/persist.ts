@@ -1,4 +1,4 @@
-const PREFIX = 'audio-kompressor:';
+const PREFIX = 'dynamics-playground:';
 
 function merge<T>(defaults: T, saved: unknown): T {
   if (Array.isArray(defaults)) {

@@ -26,7 +26,7 @@ useFrame(live.tick);
 <template>
   <header class="topbar">
     <div class="masthead">
-      <h1>{{ lang.lang === 'de' ? 'Audio Kompressor' : 'Audio Compressor' }} <span>{{ tr(UI.subtitle) }}</span></h1>
+      <h1>Dynamics Playground <span>{{ tr(UI.subtitle) }}</span></h1>
       <div class="tools">
         <MasterVolume />
         <span class="divider" aria-hidden="true"></span>

@@ -1,8 +1,8 @@
-# Audio Kompressor
+# Dynamics Playground
 
 Interaktiver Simulator, um Ehrenamtlichen zu zeigen, wie Dynamik-Bearbeitung funktioniert: Compressor, Limiter, Gate/Expander, Multiband-Kompressor, De-Esser und parametrischer EQ. Jede Änderung ist sofort sichtbar (Kennlinie, Pegel, laufende Wellenform mit Gain Reduction) und mit **Play** auch hörbar, **Bypass** schaltet für den A/B-Vergleich ab.
 
-Live: https://mihneacojocaru.github.io/Audio_Kompressor/
+Live: https://mihneacojocaru.github.io/dynamics-playground/
 
 ## Bedienung
 
