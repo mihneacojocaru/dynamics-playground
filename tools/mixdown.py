@@ -54,18 +54,21 @@ def first_onset() -> float:
 
 # name -> (stem, target loudness LUFS, pan -1..1, filters)
 DRUMS = {
-    'kick_in': ('01_KickIn', -23, 0, 'highpass=f=30,equalizer=f=380:t=q:w=1.5:g=-6,equalizer=f=4000:t=q:w=1:g=3'),
-    'kick_out': ('02_KickOut', -23, 0, 'highpass=f=30,equalizer=f=60:t=q:w=1:g=3,equalizer=f=300:t=q:w=1.5:g=-4'),
-    # Tuned ~165 Hz: cut that fundamental and the box, add e906-style presence; the layer below adds a higher body.
+    # Audix D6 style: deep lows, scooped 400 Hz, strong click. Kick In is dull and sub-heavy, so it only gives body;
+    # the click comes from Kick Out at 3.5 kHz, below the snare's 5 kHz presence (kick and snare mostly hit together).
+    # Kick In is delayed 43 samples (~1 ms) to line up with Kick Out; saturation on Kick Out adds harmonics for small speakers.
+    'kick_in': ('01_KickIn', -24, 0, 'adelay=43S,highpass=f=40,equalizer=f=400:t=q:w=1:g=-6'),
+    'kick_out': ('02_KickOut', -19, 0, 'highpass=f=35,volume=6dB,asoftclip=type=tanh,volume=-6dB,'
+                 'equalizer=f=60:t=q:w=1:g=2,equalizer=f=380:t=q:w=1:g=-8,equalizer=f=3500:t=q:w=1:g=10,equalizer=f=9000:t=h:w=1:g=2'),
     'snare_up': ('03_SnareUp', -20, 0, 'highpass=f=100,equalizer=f=165:t=q:w=2:g=-5,equalizer=f=500:t=q:w=1.2:g=-4,'
                  'equalizer=f=5000:t=q:w=0.8:g=4,equalizer=f=10000:t=h:w=1:g=3,'
                  'acompressor=threshold=-22dB:ratio=2.5:attack=10:release=90:makeup=1'),
     'snare_layer': ('snare_layer', -27, 0, 'anull'),
     'snare_down': ('04_SnareDown', -28, 0, 'highpass=f=300,equalizer=f=7000:t=h:w=1:g=2'),
-    'hihat': ('05_HiHat', -31, -0.35, 'highpass=f=400'),
+    'hihat': ('05_HiHat', -34, -0.35, 'highpass=f=400'),
     'tom1': ('06_Tom1', -28, -0.25, 'highpass=f=60,equalizer=f=500:t=q:w=1.5:g=-5,equalizer=f=4000:t=q:w=1:g=2'),
     'tom2': ('07_Tom2', -28, 0.35, 'highpass=f=50,equalizer=f=450:t=q:w=1.5:g=-5,equalizer=f=4000:t=q:w=1:g=2'),
-    'overheads': ('08_Overheads', -23, None, 'highpass=f=150,equalizer=f=400:t=q:w=1:g=-2,equalizer=f=11000:t=h:w=1:g=3'),
+    'overheads': ('08_Overheads', -25, None, 'highpass=f=150,equalizer=f=400:t=q:w=1:g=-2,equalizer=f=6000:t=h:w=1:g=-3'),
     'room': ('09_DrumsRoom', -29, 0, 'highpass=f=80,acompressor=threshold=-24dB:ratio=6:attack=5:release=120:makeup=4'),
 }
 REVERB_SENDS = {'snare_up': -9, 'snare_layer': -9, 'snare_down': -14, 'tom1': -8, 'tom2': -8, 'overheads': -14}
@@ -202,5 +205,7 @@ if __name__ == '__main__':
         render('guitar', *build({k: BAND[k] for k in ('gtr1a', 'gtr1b', 'gtr1c', 'gtr2')}, tmp, start, set(), None), tmp)
         render('keys', *build({k: BAND[k] for k in ('piano', 'hammond')}, tmp, start, set(), None, {'piano': -18}), tmp)
         render('percussion', *build({k: BAND[k] for k in ('congas', 'timbale')}, tmp, start, set(), None, {'congas': -14, 'timbale': -14}), tmp)
-        full = {**DRUMS, **BAND, 'vox': MIX_VOX}
+        # Mix-only balance: bass and piano sit louder here than in their solo files.
+        louder = {k: (BAND[k][0], BAND[k][1] + db, *BAND[k][2:]) for k, db in (('bass', 3), ('piano', 3))}
+        full = {**DRUMS, **BAND, **louder, 'vox': MIX_VOX}
         render('mix', *build(full, tmp, start, invert, REVERB_SENDS, {'vox': -14, 'bvox1': -12, 'bvox2': -12, 'piano': -18}), tmp)

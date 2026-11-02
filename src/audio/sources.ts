@@ -10,13 +10,13 @@ export interface SourceInfo {
 }
 
 export const SOURCES: SourceInfo[] = [
-  { id: 'voice', label: { de: 'Stimme', en: 'Vocals' } },
+  { id: 'drums', label: 'Drums' },
+  { id: 'toms', label: 'Toms' },
+  { id: 'percussion', label: 'Percussion', title: 'Congas + Timbale' },
   { id: 'bass', label: 'Bass' },
   { id: 'guitar', label: { de: 'E-Gitarre', en: 'Guitar' } },
   { id: 'keys', label: 'Keys', title: 'Piano + Hammond' },
-  { id: 'drums', label: 'Drums' },
-  { id: 'percussion', label: 'Percussion', title: 'Congas + Timbale' },
-  { id: 'toms', label: 'Toms' },
+  { id: 'voice', label: { de: 'Stimme', en: 'Vocals' } },
   { id: 'mix', label: 'Mix' },
   { id: 'file', label: { de: 'Eigene Datei', en: 'Own file' } },
 ];
